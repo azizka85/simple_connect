@@ -1,0 +1,27 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+package greet;
+
+option go_package = "simple_connect/services/greet";
+
+message TimingInputRequest {
+  string message = 1;
+}
+
+message MessageInfo {
+  google.protobuf.Timestamp time = 1;
+  string message = 2;
+}
+
+message TimingInputResponse {
+  repeated MessageInfo data = 1;
+}
+
+service TimingInputService {
+  rpc Send(stream TimingInputRequest) returns (TimingInputResponse);
+}
+
+service TimingOutputService {
+  rpc Accept(TimingInputRequest) returns (stream MessageInfo);
+}

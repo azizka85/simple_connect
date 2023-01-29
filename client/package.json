@@ -1,0 +1,21 @@
+{
+  "description": "grpc client",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "npm run buf:generate && vite",
+    "serve": "vite preview",
+    "build": "npm run buf:generate && vite build",
+    "buf:generate": "buf generate .."
+  },
+  "dependencies": {
+    "@bufbuild/connect-web": "^0.6.0",
+    "@bufbuild/protobuf": "^1.0.0",
+    "solid-js": "^1.6.9"
+  },
+  "devDependencies": {
+    "@bufbuild/protoc-gen-connect-web": "^0.6.0",
+    "@bufbuild/protoc-gen-es": "^1.0.0",
+    "vite": "^4.0.4",
+    "vite-plugin-solid": "^2.5.0"
+  }
+}
