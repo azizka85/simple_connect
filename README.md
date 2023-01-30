@@ -4,6 +4,7 @@
 # Installation
 - install go compiler
 - install nodejs and npm
+- install additional tools: https://connect.build/docs/go/getting-started/
 
 # How to use
 - run go project: `go run .`
