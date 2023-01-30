@@ -1,5 +1,5 @@
 # simple_connect
- Using gRPC on the browser and serer, unary and server streaming
+ Using gRPC on the browser and server, unary and server streaming
 
 # Installation
 - install go compiler
