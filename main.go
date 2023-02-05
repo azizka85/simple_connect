@@ -28,7 +28,7 @@ func (s *GreetServer) Greet(
 	ctx context.Context,
 	req *connect.Request[greet.GreetRequest],
 ) (*connect.Response[greet.GreetResponse], error) {
-	log.Println("Request headers: ", req.Header())
+	log.Println("Request: ", req.Peer().Addr, req.Peer().Protocol)
 
 	res := connect.NewResponse(
 		&greet.GreetResponse{
@@ -43,7 +43,7 @@ func (s *GreetServer) Send(
 	ctx context.Context,
 	stream *connect.ClientStream[greet.TimingInputRequest],
 ) (*connect.Response[greet.TimingInputResponse], error) {
-	log.Println("Request headers: ", stream.RequestHeader())
+	log.Println("Request: ", stream.Peer().Addr, stream.Peer().Protocol)
 
 	res := connect.NewResponse(
 		&greet.TimingInputResponse{
@@ -73,6 +73,8 @@ func (s *GreetServer) Accept(
 	req *connect.Request[greet.TimingInputRequest],
 	res *connect.ServerStream[greet.MessageInfo],
 ) error {
+	log.Println("Request: ", req.Peer().Addr, req.Peer().Protocol)
+
 	message := req.Msg.Message
 
 	if strings.TrimSpace(message) == "" {
@@ -131,12 +133,20 @@ func main() {
 	log.Printf("Listening %s\n", addr)
 
 	corsEntity := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedOrigins:   []string{"http://localhost:3000", "https://localhost:5000"},
 		AllowedHeaders:   []string{"*"},
 		AllowCredentials: true,
 		Debug:            true,
 	})
 
+	/* http.ListenAndServeTLS(
+		addr,
+		"server.crt",
+		"server.key",
+		corsEntity.Handler(
+			mux,
+		),
+	) */
 	http.ListenAndServe(
 		addr,
 		corsEntity.Handler(

@@ -9,6 +9,7 @@ export default function() {
       <hr />
       <h3>Stream gRPC type</h3>
       <StreamGRPC />
+      <StreamGRPC />
     </>
   )
 }
